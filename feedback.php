@@ -1,112 +1,49 @@
-<!DOCTYPE html>
+<?php include './components/header.php';
 
-<html
-  data-wf-domain="jiancarlos-sublime-site.webflow.io"
-  data-wf-page="66fa170629dfadef4aedcb8f"
-  data-wf-site="66fa170629dfadef4aedcb55"
-  data-wf-status="1"
->
-  <head>
-    <meta charset="utf-8" />
-    <title>GameDev</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link href="./css/style.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link
-      href="https://fonts.gstatic.com"
-      rel="preconnect"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-      type="text/javascript"
-    ></script>
-    <script type="text/javascript">
-      WebFont.load({
-        google: {
-          families: [
-            "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic",
-            "Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic",
-            "Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic",
-            "Roboto:300,regular,500",
-          ],
-        },
-      });
-    </script>
-    <script type="text/javascript">
-      !(function (o, c) {
-        var n = c.documentElement,
-          t = " w-mod-";
-        (n.className += t + "js"),
-          ("ontouchstart" in o ||
-            (o.DocumentTouch && c instanceof DocumentTouch)) &&
-            (n.className += t + "touch");
-      })(window, document);
-    </script>
-    <link
-      href="https://cdn.prod.website-files.com/img/favicon.ico"
-      rel="shortcut icon"
-      type="image/x-icon"
-    />
-    <link
-      href="https://cdn.prod.website-files.com/img/webclip.png"
-      rel="apple-touch-icon"
-    />
-  </head>
 
-  <!-- ####################### HEADER ###################### -->
+// $feedback = [
+//   [
+//     'id' => '1',
+//     'name' => 'Benjamin Cruz',
+//     'email' => 'bcruz@gmail.com',
+//     'body' => 'Kodego Bootcamp is great'
+//   ],
+//   [
+//     'id' => '2',
+//     'name' => 'Joanne Abala',
+//     'email' => 'jabala@gmail.com',
+//     'body' => 'I highly recommend Kodego Bootcamp'
+//   ],
+//   [
+//     'id' => '3',
+//     'name' => 'Jason Tolentino',
+//     'email' => 'jtolentino@gmail.com',
+//     'body' => 'Their learning materials and delivery are awesome!'
+//   ]
+//   ];
 
-  <body class="body">
-    <div
-      data-collapse="medium"
-      data-animation="default"
-      data-duration="400"
-      data-easing="ease"
-      data-easing2="ease"
-      role="banner"
-      class="navigation-bar w-nav"
-    >
-      <div class="w-container">
-        <a
-          href="index.php"
-          aria-current="page"
-          class="brand-link w-nav-brand w--current"
-          ><h1 class="brand-text">GameDev</h1></a
-        >
-        <nav role="navigation" class="navigation-menu w-nav-menu">
-          <a
-            href="index.php"
-            aria-current="page"
-            class="navigation-link w-nav-link w--current"
-            >Home</a
-          ><a href="/contact" class="navigation-link w-nav-link">Feedbacks</a>
-        </nav>
-        <div class="hamburger-button w-nav-button">
-          <div class="w-icon-nav-menu"></div>
-        </div>
-      </div>
+  ?>
+  <br>
+  <h2>PAST FEEDBACK</h2>
+  <?php if (empty($feedback)): ?>
+  <p class="lead mt-3 text-center">There is no feedback</p>
+<?php endif; ?>
+
+ 
+
+<?php foreach ($feedback as $item): ?>
+  <div class="card my-3 w-75">
+    <div class="card-body text-center">
+      <?php echo $item['body']; ?>
+      <div class="text-secondary mt-2"></div>
+      <?php echo $item['name']; ?>
+      on <?php echo date_format(date_create($item['date']), 'g:ia \o\n l jS F Y'); ?>
     </div>
-    <div class="hero-section centered">
-      <div
-        data-w-id="e464d218-f801-55d1-1f50-7da00b5bfb8f"
-        style="opacity: 0"
-        class="w-container"
-      >
-        <h1 data-ix="fade-in-bottom-page-loads" class="hero-heading">
-          gamedev
-        </h1>
-        <div data-ix="fade-in-bottom-page-loads" class="hero-subheading">
-          Discover the Best Free-To-Play Games with Ease!
-        </div>
-              </div>
-    </div>
+  </div>
+<?php endforeach; ?>
+
+</div>
+</main>
     <?php include './components/footer.php' ?>
         <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66fa170629dfadef4aedcb55"
