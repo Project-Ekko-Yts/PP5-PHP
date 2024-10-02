@@ -1,35 +1,15 @@
 <?php include './components/header.php';
+  
+$sql = 'SELECT * FROM feedback';
+$result = mysqli_query($conn, $sql);
+$feedback = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+?>
+<h2>Past Feedback</h2>
 
-// $feedback = [
-//   [
-//     'id' => '1',
-//     'name' => 'Benjamin Cruz',
-//     'email' => 'bcruz@gmail.com',
-//     'body' => 'Kodego Bootcamp is great'
-//   ],
-//   [
-//     'id' => '2',
-//     'name' => 'Joanne Abala',
-//     'email' => 'jabala@gmail.com',
-//     'body' => 'I highly recommend Kodego Bootcamp'
-//   ],
-//   [
-//     'id' => '3',
-//     'name' => 'Jason Tolentino',
-//     'email' => 'jtolentino@gmail.com',
-//     'body' => 'Their learning materials and delivery are awesome!'
-//   ]
-//   ];
-
-  ?>
-  <br>
-  <h2>PAST FEEDBACK</h2>
-  <?php if (empty($feedback)): ?>
-  <p class="lead mt-3 text-center">There is no feedback</p>
+<?php if (empty($feedback)): ?>
+  <p class="lead mt-3">There is no feedback</p>
 <?php endif; ?>
-
- 
 
 <?php foreach ($feedback as $item): ?>
   <div class="card my-3 w-75">

@@ -1,4 +1,54 @@
 <?php include './components/header.php' ?>
+
+<?php
+//Set vars to empty values
+$name = $email = $body = '';
+$nameErr = $emailErr = $bodyErr = '';
+
+//Form submit
+if (isset($_POST['submit'])) {
+  //Validate name
+  if (empty($_POST['name'])) {
+    $nameErr = 'Name is required';
+  } else {
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  }
+
+  //validate email
+  if (empty($_POST['email'])) {
+    $emailErr = 'Email is required';
+  } else {
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+  }
+
+  //Validate body
+  if (empty($_POST['body'])) {
+    $bodyErr = 'Feedback is required';
+  } else {
+    $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  }
+
+
+  if (empty($nameErr) && empty($emailErr) && empty($bodyErr)) {
+
+    //Set timezone to Asia/Manila
+    date_default_timezone_set('Asia/Manila');
+
+    //Add to database
+    $currentDate = date('Y-m-d H:i:s'); //current timestamp
+    $sql = "INSERT INTO feedback (name, email, body, date) VALUES ('$name', '$email', '$body', '$currentDate')";
+    if (mysqli_query($conn, $sql)) {
+      //success
+      header('Location: feedback.php');
+    } else {
+      //Error
+      echo 'Error: ' . mysqli_error($conn);
+    }
+  }
+}
+?>
+
+
     <div class="section">
       <div class="container-2 w-container" >
         <div class="section-title-group"id="Download">
@@ -211,64 +261,60 @@
               </div>
             </div>
             <div data-w-tab="Tab 3" class="w-tab-pane w--tab-active">
-              <div class="w-form">
-                <form
-                  id="email-form"
-                  name="email-form"
-                  data-name="Email Form"
-                  method="get"
-                  class="form-2"
-                  data-wf-page-id="66fa170629dfadef4aedcb8f"
-                  data-wf-element-id="7dc4bbe6-b4b6-3c74-795d-fb2832fe6c2a"
-                >
-                  <label for="name" class="field-label-3">Name</label
-                  ><input
-                    class="text-field-3 w-input"
-                    maxlength="256"
-                    name="name"
-                    data-name="Name"
-                    placeholder="Enter your name"
-                    type="text"
-                    id="name"
-                  /><label for="Email-3" class="field-label-2">Email</label
-                  ><input
-                    class="text-field-2 w-input"
-                    maxlength="256"
-                    name="Email"
-                    data-name="Email"
-                    placeholder="Enter your email"
-                    type="email"
-                    id="Email-3"
-                  /><label for="email" class="field-label">Feedback</label
-                  ><input
-                    class="text-field w-input"
-                    maxlength="256"
-                    name="email"
-                    data-name="Email"
-                    placeholder="Enter your message"
-                    type="text"
-                    id="email"
-                  /><input
-                    type="submit"
-                    data-wait="Please wait..."
-                    class="w-button"
-                    value="Submit"
-                  />
-                </form>
-                <div class="w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div class="w-form-fail">
-                  <div>
-                    Oops! Something went wrong while submitting the form.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+              <!-- // FORMS // -->
+
+              <h2>Feedback</h2>
+<p class="lead text-center">
+  Leave feedback for Kodego Bootcamp Tropang Potchi
+</p>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="text-center">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Enter your name" value="<?php echo htmlspecialchars($name); ?>" />
+
+    <?php if (!empty($nameErr)) { ?> <span class="text-danger"> <?php echo $nameErr; ?></span> <?php } ?>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Enter your email" value="<?php echo htmlspecialchars($email); ?>" />
+
+    <?php if (!empty($emailErr)) { ?> <span class="text-danger"> <?php echo $emailErr; ?></span> <?php } ?>
+
+
+  </div>
+  <div class="mb-3">
+    <label for="body" class="form-label">Feedback</label>
+    <textarea
+      class="form-control"
+      id="body"
+      name="body"
+      placeholder="Enter your feedback">
+      <?php echo htmlspecialchars($body); ?>
+    </textarea>
+
+    <?php if (!empty($bodyErr)) { ?> <span class="text-danger"> <?php echo $bodyErr; ?></span> <?php } ?>
+  </div>
+  <div class="mb-3">
+    <input
+      type="submit"
+      name="submit"
+      value="Send"
+      class="btn btn-dark w-100" />
+  </div>
+</form>
+</div>
+</main>
     <?php include './components/footer.php' ?>
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66fa170629dfadef4aedcb55"
